@@ -1,0 +1,100 @@
+<div style="display: flex;">
+    <h1>Resim Galerisi</h1>
+    <span (click)="addCard()" style="font-size: 34px; color: green; cursor: pointer;"
+        class="material-symbols-outlined ms-3">
+        add_circle
+    </span>
+</div>
+
+<div class="insights">
+
+    <div *ngIf="addCardDiv" class="sales">
+        <span class="material-symbols-outlined icons">
+            groups
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <form #createGalleryForm="ngForm" (ngSubmit)="createGallery(createGalleryForm)">
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img src="" style="width: 60%; height: 60%;"
+                                alt="Selected Image">
+                            <div class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span></button>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk "></i>
+                                <!-- Save -->
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    @for (gallery of galleries; track gallery) {
+    <div class="sales">
+        <span class="material-symbols-outlined icons">
+            groups
+        </span>
+
+        <div class="right">
+            <div class="input-box">
+                <form #updateGalleryForm="ngForm" (ngSubmit)="updateGallery(updateGalleryForm, gallery)">
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img style="width: 60%; height: 60%;" src="{{imgUrl}}{{gallery.image}}"
+                                alt="">
+                            <div style="display: flex; flex-direction: column;" class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span></button>
+                                <!-- <button class="btn" type="button" (click)="deleteImageById(about.id!)"><span
+                                        class="material-symbols-sharp icons">delete</span></button> -->
+                            </div>
+
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="btns">
+                            <button class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Save -->
+                            </button>
+
+                            <button type="button" (click)="deleteGalleryById(gallery.id!)" class="btn btn-danger mr-3">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                            <button  type="button" (click)="updateIsActive(gallery.id!)" class="btn btn-primary">
+                                <i *ngIf="gallery.isActive" style="font-size: 18px;" class="fa-solid fa-square-check"></i>
+                                <i *ngIf="!gallery.isActive" style="font-size: 18px;" class="fa-solid fa-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    }
+</div>
+

@@ -1,0 +1,176 @@
+<div class="container">
+    <aside id="aside" #sideMenu>
+        <div class="top">
+            <div class="logo">
+                <img style="width: 70px; height: 100%; filter: invert(0%) brightness(100%);" src="/assets/img/bobinaj-logo.png" alt="">
+            </div>
+            <div class="close" id="close-btn">
+                <span (click)="toggleSideBar()" class="material-symbols-sharp">close</span>
+            </div>
+        </div>
+        <div class="sidebar">
+            <a routerLink="/" >
+                <span class="material-symbols-outlined">
+                    home
+                    </span>
+                <h3>Ana Sayfa</h3>
+            </a>
+            <a routerLink="/about" >
+                <span class="material-symbols-outlined">
+                    description
+                    </span>
+                <h3>Hakkında</h3>
+            </a>
+            <a routerLink="/service">
+                <span class="material-symbols-outlined">
+                    home_repair_service
+                    </span>
+                <h3>Hizmetler</h3>
+            </a>
+            <a routerLink="/process">
+                <span class="material-symbols-outlined">
+                    account_tree
+                    </span>
+                <h3>Süreç Yönetimi</h3>
+            </a>
+            <a routerLink="/comment">
+                <span class="material-symbols-outlined">
+                    comment
+                </span>
+                <h3>Yorumlar</h3>
+            </a>
+            <a routerLink="/referance">
+                <span class="material-symbols-outlined">
+                    groups
+                    </span>
+                <h3>Referanslar</h3>
+            </a>
+            <a routerLink="/gallery">
+                <span class="material-symbols-outlined">
+                    gallery_thumbnail
+                    </span>
+                <h3>Resim Galerisi</h3>
+            </a>
+            <a routerLink="/information">
+                <span class="material-symbols-outlined">
+                    contacts
+                    </span>
+                <h3>Firma Bilgileri</h3>
+            </a>
+            <a routerLink="/contact" >
+                <span class="material-symbols-sharp">mail_outline</span>
+                <h3>Mesajlar</h3>
+            </a>
+            <a routerLink="/settings" >
+                <span class="material-symbols-sharp">settings</span>
+                <h3>Ayarlar</h3>
+            </a>
+            <a (click)="logout()" href="/">
+                <span  class="material-symbols-sharp">logout</span>
+                <h3>Çıkış</h3>
+            </a>
+        </div>
+    </aside>
+    
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+
+   
+    <div class="right">
+        <div class="top">
+            <button id="menu-btn">
+                <span (click)="toggleSideBar()" class="material-symbols-sharp">menu</span>
+            </button>
+            <div class="theme-toggler" (click)="toggleTheme()">
+                <span class="material-symbols-sharp" [class.active]="!isDarkTheme">light_mode</span>
+                <span class="material-symbols-sharp" [class.active]="isDarkTheme">dark_mode</span>
+              </div>
+            <div class="profile">
+                <div class="info">
+                    <h4 style="font-size: 14px; font-weight: 700;"> {{auth.user.userName}}</h4>
+                    <b>{{auth.user.email}}</b>
+                    <h3>Admin </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="recent-updates">
+            <h2>{{messageCount}} Yeni Mesaj</h2>
+            <div class="updates">
+                @for (contact of contacts; track contact) {
+                    <div class="update">
+                        <div class="profile-photo">
+                            <img src="/assets/img/default-user-1-min.png" alt="">
+                        </div>
+                        <div class="message">
+                            <p><b>{{contact.name}}</b>, {{contact.email}}</p>
+                            <p>{{contact.subject}}</p>
+
+                            <small class="text-muted-1">{{contact.createdDate | date: ""}}</small>
+                        </div>
+                    </div>    
+                }
+            </div>
+        </div>
+
+        <!-- <div class="sales-analytics">
+            <h2>Veri Analizi</h2>
+            <div class="item online">
+                <div class="icon">
+                    <span class="material-symbols-outlined">
+                        database
+                        </span>
+                </div>
+                <div class="right">
+                    <div class="info">
+                        <h3>Database</h3>
+                    </div>
+                    <h5 class="success">+39%</h5>
+                    <h3>{{dbInfoModel.dbSize}}</h3>
+                </div>
+            </div>
+
+            <div class="item offline">
+                <div class="icon">
+                    <span class="material-symbols-outlined">
+                        image
+                        </span>
+                </div>
+                <div class="right">
+                    <div class="info">
+                        <h3>Resim</h3>
+                    </div>
+                    <h5 class="danger">-17%</h5>
+                    <h3>{{fileSizeInMB}} MB</h3>
+                </div>
+            </div>
+
+            <div class="item customers">
+                <div class="icon">
+                    <span class="material-symbols-sharp">person</span>
+                </div>
+                <div class="right">
+                    <div class="info">
+                        <h3>Toplam Ziyaretçi</h3>
+                    </div>
+                    <h5 class="success">+25%</h5>
+                    <h3>{{visitorCount}}</h3>
+                </div>
+            </div>
+
+            <div class="item online">
+                <div class="icon">
+                    <span class="material-symbols-sharp">comment</span>
+                </div>
+                <div class="right">
+                    <div class="info">
+                        <h3>Toplam Yorum</h3>
+                    </div>
+                    <h5 class="success">+25%</h5>
+                    <h3>{{commentCount}}</h3>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>

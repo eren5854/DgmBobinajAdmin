@@ -1,0 +1,55 @@
+<div style="display: flex;">
+    <h1>Ayarlar</h1>
+</div>
+
+<div class="insights">
+    <div class="sales">
+        <span class="material-symbols-sharp icons">password</span>
+        <div class="right">
+            <div class="input-box">
+                <h2>Şifre Değiştir</h2>
+                <form #changePasswordForm="ngForm" (ngSubmit)="changePassword(changePasswordForm)">
+                    <div class="input-field mb-3">
+                        <label for="password">Mevcut Şifre</label>
+                        <input [(ngModel)]="changePasswordModel.currentPassword" validate type="password"
+                            name="password" class="form-control" id="password" autocomplete="off">
+                    </div>
+                    <div class="input-field">
+                        <label for="password">Yeni Şifre</label>
+                        <div class="input-group mb-3">
+                            <input [(ngModel)]="changePasswordModel.newPassword" required minlength="8" validate
+                                (focus)="isPasswordFocus = true" (blur)="isPasswordFocus = false" #password
+                                name="password" (keyup)="checkRegexPatternForPassword(password)" type="password"
+                                class="form-control">
+                            <span class="input-group-text icons" id="basic-addon1">
+                                <i (click)="showOrHidePassword(password)" *ngIf="!isShowPassword"
+                                    class="fa-solid fa-eye"></i>
+                                <i (click)="showOrHidePassword(password)" *ngIf="isShowPassword"
+                                    class="fa-solid fa-eye-slash"></i>
+                            </span>
+                        </div>
+                        <div *ngIf="isPasswordFocus" class="psswrd-req">
+                            <ul class="password-ul">
+                                <li class="pw-error" id="minCharacter">Min 8 Character</li>
+                                <li class="pw-error" id="upperLetter">Upper Case</li>
+                                <li class="pw-error" id="lowerLetter">Lower Case</li>
+                            </ul>
+                            <ul class="password-ul">
+                                <li class="pw-error" id="specialLetter">Special Character</li>
+                                <li class="pw-error" id="numLetter">Number</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk "></i>
+                                
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

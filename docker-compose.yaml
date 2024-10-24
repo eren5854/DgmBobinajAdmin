@@ -1,0 +1,11 @@
+services:
+
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dgm-bobinaj-admin
+    container_name: DgmBobinajAdmin
+    ports:
+      - 32630:80

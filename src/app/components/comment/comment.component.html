@@ -1,0 +1,79 @@
+<div style="display: flex;">
+    <h1>Yorumlar</h1>
+    <span (click)="createComment()" style="font-size: 34px; color: green; cursor: pointer;"
+        class="material-symbols-outlined ms-3">
+        add_circle
+    </span>
+</div>
+
+<div class="insights" style="display: flex;">
+    <table class="table table-striped" style="margin-top: 70px;">
+        <thead>
+            <tr>
+                <th scope="col">İsim</th>
+                <th scope="col">Puan</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(comment of comments; track comment){
+            <tr>
+                <td>{{comment.commentName}}</td>
+                <td>{{comment.rate}}</td>
+                <td>
+                    <button class="btn btn-success mr-2" (click)="openModal(comment)"><i
+                            class="fa-solid fa-eye"></i></button>
+                    <button class="btn btn-danger mr-2" (click)="deleteCommentById(comment.id!)"><i
+                            class="fa-solid fa-trash"></i></button>
+                    <button type="button" (click)="updateIsActive(comment.id!)" class="btn btn-primary">
+                        <i *ngIf="comment.isActive" style="font-size: 18px;" class="fa-solid fa-square-check"></i>
+                        <i *ngIf="!comment.isActive" style="font-size: 18px;" class="fa-solid fa-square"></i>
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" [ngStyle]="{'display': showModal ? 'flex' : 'none'}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-size: 25px;">Mesaj Detayı</h3>
+                    <p>{{selectedMessage?.createdDate | date: "dd/MM/yyy - HH:mm"}}</p>
+                </div>
+                <div class="modal-close-btn" (click)="closeModal()">
+                    <span style="font-size: 44px; cursor: pointer;" class="material-symbols-outlined">
+                        cancel
+                    </span>
+                </div>
+            </div>
+            <div class="sales message-modal">
+                <div class="right">
+                    <div class="input-box">
+                        <div class="grid-container">
+                            <div class="input-field mb-2">
+                                <label for="email">İsim Soyisim:</label>
+                                <p>{{ selectedMessage?.commentName }}</p>
+                            </div>
+                            <div class="input-field mb-2">
+                                <label for="email">Puan(0-5)</label>
+                                <p>{{ selectedMessage?.rate }}</p>
+                            </div>
+                            <div class="input-field mb-2">
+                                <label for="subject">Düzenleme Linki:</label>
+                                <p>http://localhost:4200/comment-item/{{ selectedMessage?.id }}</p>
+                            </div>
+                            <div class="input-field mb-2 item1">
+                                <label for="messageText">Yorum:</label>
+                                <p class="form-control" style="height: 200px;">{{ selectedMessage?.commentText }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

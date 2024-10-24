@@ -1,0 +1,130 @@
+<div style="display: flex;">
+    <h1>Hizmetler</h1>
+    <span (click)="addCard()" style="font-size: 34px; color: green; cursor: pointer;"
+        class="material-symbols-outlined ms-3">
+        add_circle
+    </span>
+</div>
+
+<div class="insights">
+
+    <div *ngIf="addCardDiv" class="sales">
+        <span class="material-symbols-outlined icons">
+            groups
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <form #createServiceForm="ngForm" (ngSubmit)="createService(createServiceForm)">
+                    <div class="input-field mb-2">
+                        <label for="firstName">Başlık</label>
+                        <input [(ngModel)]="serviceModel.title" validate type="text" name="title" class="form-control"
+                            id="title" autocomplete="off">
+                    </div>
+                    <div class="input-field mb-2">
+                        <label for="lastName">Metin</label>
+                        <textarea [(ngModel)]="serviceModel.text" id="text" name="text" class="form-control"
+                            style="height: 200px;">
+                        </textarea>
+                        <div class="invalid-feedback">
+                            Last Name must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img src="{{imgUrl}}{{serviceModel.image}}" style="width: 60%; height: 60%;"
+                                alt="Selected Image">
+                            <div class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span></button>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk "></i>
+                                <!-- Save -->
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    @for (service of services; track service) {
+    <div class="sales">
+        <span class="material-symbols-outlined icons">
+            groups
+        </span>
+
+        <div class="right">
+            <div class="input-box">
+                <form #updateServiceForm="ngForm" (ngSubmit)="updateService(updateServiceForm, service)">
+                    <div class="input-field mb-2">
+                        <label for="firstName">Başlık</label>
+                        <input [(ngModel)]="service.title" validate type="text" name="title" class="form-control"
+                            id="title" required autocomplete="off">
+                        <div class="invalid-feedback">
+                            Name must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field mb-2">
+                        <label for="lastName">Metin</label>
+                        <textarea [(ngModel)]="service.text" validate type="text" name="text" class="form-control"
+                            id="text" autocomplete="off" style="height: 200px;"></textarea>
+                        <div class="invalid-feedback">
+                            Last Name must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img style="width: 60%; height: 60%;" src="{{imgUrl}}{{service.image}}"
+                                alt="">
+                            <div style="display: flex; flex-direction: column;" class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span></button>
+                                <!-- <button class="btn" type="button" (click)="deleteImageById(about.id!)"><span
+                                        class="material-symbols-sharp icons">delete</span></button> -->
+                            </div>
+
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="btns">
+                            <button class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Save -->
+                            </button>
+
+                            <button type="button" (click)="deleteServiceById(service.id!)" class="btn btn-danger mr-3">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                            <button  type="button" (click)="updateIsActive(service.id!)" class="btn btn-primary">
+                                <i *ngIf="service.isActive" style="font-size: 18px;" class="fa-solid fa-square-check"></i>
+                                <i *ngIf="!service.isActive" style="font-size: 18px;" class="fa-solid fa-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    }
+</div>
+

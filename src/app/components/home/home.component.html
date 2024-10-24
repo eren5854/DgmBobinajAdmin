@@ -1,0 +1,278 @@
+<div style="display: flex;">
+    <h1>Site Bilgileri</h1>
+</div>
+
+<div class="insights">
+    <div class="sales">
+        <span class="material-symbols-outlined icons">
+            info
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <h2>Bilgiler</h2>
+                <form #updateLayoutForm="ngForm" (ngSubmit)="updateLayout(updateLayoutForm)">
+                    <div class="input-field mb-2">
+                        <label for="title">Başlık</label>
+                        <input [(ngModel)]="layoutModel.title" validate type="text" name="title" class="form-control"
+                            id="title" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="subtitle">Alt başlık</label>
+                        <input [(ngModel)]="layoutModel.subtitle" validate type="text" name="subtitle"
+                            class="form-control" id="subtitle" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="description">Logo</label>
+                        <img src="{{imgUrl}}{{layoutModel.logo}}" alt="">
+                    </div>
+
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" type="submit" class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Kaydet -->
+                            </button>
+
+                            <button type="button" (click)="updateIsActive(layoutModel.id!)"
+                            class="btn btn-primary">
+                            <i *ngIf="layoutModel.isActive" style="font-size: 18px;"
+                                class="fa-solid fa-square-check"></i>
+                            <i *ngIf="!layoutModel.isActive" style="font-size: 18px;"
+                                class="fa-solid fa-square"></i>
+                        </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: flex; margin-top: 50px;">
+    <h1>Linkler</h1>
+    <span (click)="addCard()" style="font-size: 34px; color: green; cursor: pointer;"
+        class="material-symbols-outlined ms-3">
+        add_circle
+    </span>
+</div>
+
+<div class="insights">
+    <div *ngIf="addCardDiv" class="sales">
+        <span class="material-symbols-outlined icons">
+            link
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <!-- <h2>Lİnkler</h2> -->
+                <form #createLinkForm="ngForm" (ngSubmit)="createLink(createLinkForm)">
+                    <div class="input-field mb-2">
+                        <label for="title">Url</label>
+                        <input [(ngModel)]="linkModel.url" validate type="text" name="url" class="form-control" id="url"
+                            required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="subTitle">Tip</label>
+                        <select [(ngModel)]="linkModel.linkType" required name="linkType" id="linkType"
+                            class="form-control">
+                            <option value="" disabled selected>Link</option>
+                            <option value="0">instagram</option>
+                            <option value="1">facebook</option>
+                            <option value="2">twitter</option>
+                            <option value="3">linkedin</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Save -->
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    @for (link of links; track link) {
+    <div class="sales">
+        <span class="material-symbols-outlined icons">
+            link
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <!-- <h2>Lİnkler</h2> -->
+                <form #updateLinkForm="ngForm" (ngSubmit)="updateLink(updateLinkForm, link)">
+                    <div class="input-field mb-2">
+                        <label for="title">Url</label>
+                        <input [(ngModel)]="link.url" validate type="text" name="title" class="form-control" id="title"
+                            required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="subTitle">Tip</label>
+                        <select [(ngModel)]="link.linkType" required name="linkType" id="linkType" class="form-control">
+                            <option value="" disabled selected>Link</option>
+                            <option value="0">instagram</option>
+                            <option value="1">facebook</option>
+                            <option value="2">twitter</option>
+                            <option value="3">linkedin</option>
+                        </select>
+                    </div>
+
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Save -->
+                            </button>
+
+                            <button type="button" (click)="deleteLinkById(link.id!)" class="btn btn-danger mr-3">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                            <button type="button" (click)="updateLinkIsActive(link.id!)" class="btn btn-primary">
+                                <i *ngIf="link.isActive" style="font-size: 18px;" class="fa-solid fa-square-check"></i>
+                                <i *ngIf="!link.isActive" style="font-size: 18px;" class="fa-solid fa-square"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+
+<div style="display: flex; margin-top: 50px;">
+    <h1>Hizmetler</h1>
+    <span (click)="addMiniServiceCard()" style="font-size: 34px; color: green; cursor: pointer;"
+        class="material-symbols-outlined ms-3">
+        add_circle
+    </span>
+</div>
+<div class="insights">
+    <div *ngIf="addMiniServiceCardDiv" class="sales">
+        <span class="material-symbols-outlined icons">
+            info
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <h2>Bilgiler</h2>
+                <form #createMiniServiceForm="ngForm" (ngSubmit)="createMiniService(createMiniServiceForm)">
+                    <div class="input-field mb-2">
+                        <label for="title">Başlık</label>
+                        <input [(ngModel)]="miniServiceModel.title" validate type="text" name="title"
+                            class="form-control" id="title" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="subTitle">Alt başlık</label>
+                        <input [(ngModel)]="miniServiceModel.subtitle" validate type="text" name="subTitle"
+                            class="form-control" id="subTitle" autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setMiniServiceImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img style="width: 20%; height: 60%;" src="{{imgUrl}}{{miniServiceModel.image}}" alt="">
+                            <div style="display: flex; flex-direction: column;" class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Save -->
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    @for (miniService of miniServices; track miniService) {
+    <div class="sales">
+        <span class="material-symbols-outlined icons">
+            info
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <h2>Bilgiler</h2>
+                <form #updateMiniServiceForm="ngForm"
+                    (ngSubmit)="updateMiniService(updateMiniServiceForm, miniService)">
+                    <div class="input-field mb-2">
+                        <label for="title">Başlık</label>
+                        <input [(ngModel)]="miniService.title" validate type="text" name="title1" class="form-control"
+                            id="title1" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="subTitle">Alt başlık</label>
+                        <input [(ngModel)]="miniService.subtitle" validate type="text" name="subtitle1"
+                            class="form-control" id="subtitle1" autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setMiniServiceImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img style="width: 20%; height: 60%;" src="{{imgUrl}}{{miniService.image}}" alt="">
+                            <div style="display: flex; flex-direction: column;" class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span>
+                                </button>
+                            </div>
+
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Save -->
+                            </button>
+
+                            <button type="button" (click)="deleteMiniServiceById(miniService.id!)"
+                                class="btn btn-danger mr-3">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+
+                            <button type="button" (click)="updateMiniServiceIsActive(miniService.id!)"
+                                class="btn btn-primary">
+                                <i *ngIf="miniService.isActive" style="font-size: 18px;"
+                                    class="fa-solid fa-square-check"></i>
+                                <i *ngIf="!miniService.isActive" style="font-size: 18px;"
+                                    class="fa-solid fa-square"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    }
+</div>

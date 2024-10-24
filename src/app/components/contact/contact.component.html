@@ -1,0 +1,76 @@
+<div style="display: flex;">
+    <h1>Mesajlar</h1>
+</div>
+
+<div class="insights" style="display: flex;">
+    <table class="table table-striped" style="margin-top: 70px;">
+        <thead>
+            <tr>
+                <th scope="col">Okundu</th>
+                <th scope="col">Gönderen İsim</th>
+                <th scope="col">Gönderen E-posta</th>
+                <th scope="col">Konu</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(contact of contacts; track contact){
+            <tr>
+                <td *ngIf="contact.isRead === false"><i style="color: rgb(177, 177, 177);" class="fa-solid fa-check"></i></td>
+                <td *ngIf="contact.isRead === true"><i style="color: rgb(79, 182, 236)" class="fa-solid fa-check-double"></i></td>
+                <td>{{contact.name}}</td>
+                <td>{{contact.email}}</td>
+                <td>{{contact.subject}}</td>
+                <td>
+                    <button class="btn btn-success mr-2" (click)="openModal(contact)"><i
+                            class="fa-solid fa-eye"></i></button>
+                    <button class="btn btn-danger" (click)="deleteMessageById(contact.id!, contact.subject!)"><i
+                            class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal" [ngStyle]="{'display': showModal ? 'flex' : 'none'}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h3 style="font-size: 25px;">Mesaj Detayı</h3>
+                    <p>{{selectedMessage?.createdDate | date: "dd/MM/yyy - HH:mm"}}</p>
+                </div>
+                <div class="modal-close-btn" (click)="closeModal()">
+                    <span style="font-size: 44px; cursor: pointer;" class="material-symbols-outlined">
+                        cancel
+                    </span>
+                </div>
+            </div>
+            <div class="sales message-modal">
+                <div class="right">
+                    <div class="input-box">
+                        <div class="grid-container">
+                            <div class="input-field mb-2">
+                                <label for="email">İsim Soyisim:</label>
+                                <p>{{ selectedMessage?.name }}</p>
+                            </div>
+                            <div class="input-field mb-2">
+                                <label for="email">E-Posta:</label>
+                                <p>{{ selectedMessage?.email }}</p>
+                            </div>
+                            <div class="input-field mb-2">
+                                <label for="subject">Konu:</label>
+                                <p>{{ selectedMessage?.subject }}</p>
+                            </div>
+                            <div class="input-field mb-2 item1">
+                                <label for="messageText">Mesaj:</label>
+                                <p class="form-control" style="height: 200px;">{{ selectedMessage?.content }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
