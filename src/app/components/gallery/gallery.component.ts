@@ -21,13 +21,14 @@ export class GalleryComponent {
   galleryModel: ImageModel = new ImageModel();
   addCardDiv = false;
   imageSrc: string | ArrayBuffer | null = null;
-  imgUrl = "https://localhost:7023/Images/";
+  imgUrl = "";
 
   constructor(
     private http: HttpService,
     private swal: SwalService
   ) {
     this.getGallery();
+    this.imgUrl = http.getImageUrl();
   }
 
 

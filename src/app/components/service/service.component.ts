@@ -19,13 +19,14 @@ export class ServiceComponent {
   serviceModel: DescriptionModel = new DescriptionModel();
   addCardDiv = false;
   imageSrc: string | ArrayBuffer | null = null;
-  imgUrl = "https://localhost:7023/Images/";
+  imgUrl = "";
 
   constructor(
     private http: HttpService,
     private swal: SwalService
   ){
     this.getService();
+    this.imgUrl = http.getImageUrl();
   }
 
 

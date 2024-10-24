@@ -5,6 +5,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { SwalService } from '../../services/swal.service';
 import { Router, RouterLink } from '@angular/router';
 import { LoginModel } from '../../models/login.model';
+import { HttpService } from '../../services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { LoginModel } from '../../models/login.model';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  url:string = "https://localhost:7023/api/"
+  url:string = ""
   // url:string = "https://alternatifmuhendis.webapi.erendelibas.com/api/"
   loginModel: LoginModel = new LoginModel();
   showModal = false;
@@ -22,11 +23,12 @@ export class LoginComponent {
 
   constructor(
     private http: HttpClient,
+    private https: HttpService,
     private swal: SwalService,
     private router: Router,
     // private emailService: EmailJsService
   ) {
-
+    this.url = https.url;
   }
 
   login(form: NgForm) {

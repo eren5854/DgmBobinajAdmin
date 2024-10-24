@@ -16,12 +16,14 @@ export class AboutComponent {
   descriptions: DescriptionModel[] = [];
   aboutModel: DescriptionModel = new DescriptionModel();
   imageSrc: string | ArrayBuffer | null = null;
-  imgUrl = "https://localhost:7023/Images/";
+  imgUrl = "";
 
   constructor(
     private http: HttpService
   ){
     this.getAbout();
+    this.imgUrl = http.getImageUrl();
+    
   }
 
   getAbout(){

@@ -8,7 +8,7 @@ import { SwalService } from './swal.service';
 })
 export class HttpService {
 
-   imageUrl:string = "https://localhost:7023/";
+   imageUrl:string = "https://localhost:7023/Images/";
   //  imageUrl:string = "https://alternatifmuhendis.webapi.erendelibas.com/" 
    url:string = "https://localhost:7023/api/"
   //  url:string = "https://alternatifmuhendis.webapi.erendelibas.com/api/"

@@ -20,13 +20,14 @@ export class ReferanceComponent {
   referanceModel: ImageModel = new ImageModel();
   addCardDiv = false;
   imageSrc: string | ArrayBuffer | null = null;
-  imgUrl = "https://localhost:7023/Images/";
+  imgUrl = "";
 
   constructor(
     private http: HttpService,
     private swal: SwalService
   ) {
     this.getReferance();
+    this.imgUrl = http.getImageUrl();
   }
 
 

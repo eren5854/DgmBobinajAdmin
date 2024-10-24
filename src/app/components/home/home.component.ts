@@ -22,7 +22,7 @@ export class HomeComponent {
   miniServiceModel: MiniServiceModel = new MiniServiceModel();
   miniServices: MiniServiceModel[] = [];
   imageSrc: string | ArrayBuffer | null = null;
-  imgUrl = "https://localhost:7023/Images/";
+  imgUrl = "";
 
   addCardDiv = false;
   addMiniServiceCardDiv = false;
@@ -34,6 +34,7 @@ export class HomeComponent {
     this.getLayout();
     this.getMiniService();
     this.getLink();
+    this.imgUrl = http.getImageUrl();
   }
 
   getLayout(){
