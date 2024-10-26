@@ -1,8 +1,71 @@
 <div style="display: flex;">
     <h1>Site Bilgileri</h1>
+    <span *ngIf="isLayoutNull" (click)="addCard()" style="font-size: 34px; color: green; cursor: pointer;"
+        class="material-symbols-outlined ms-3">
+        add_circle
+    </span>
 </div>
 
 <div class="insights">
+    <div *ngIf="addCardDiv" class="sales">
+        <span class="material-symbols-outlined icons">
+            info
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <h2>Bilgiler</h2>
+                <form #createLayoutForm="ngForm" (ngSubmit)="createLayout(createLayoutForm)">
+                    <div class="input-field mb-2">
+                        <label for="title">Başlık</label>
+                        <input [(ngModel)]="layoutModel.title" validate type="text" name="title" class="form-control"
+                            id="title" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="subtitle">Alt başlık</label>
+                        <input [(ngModel)]="layoutModel.subtitle" validate type="text" name="subtitle"
+                            class="form-control" id="subtitle" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img style="width: 20%; height: 60%;" src="{{imgUrl}}{{layoutModel.logo}}" alt="">
+                            <div style="display: flex; flex-direction: column;" class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" type="submit" class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Kaydet -->
+                            </button>
+
+                            <button type="button" (click)="updateIsActive(layoutModel.id!)"
+                            class="btn btn-primary">
+                            <i *ngIf="layoutModel.isActive" style="font-size: 18px;"
+                                class="fa-solid fa-square-check"></i>
+                            <i *ngIf="!layoutModel.isActive" style="font-size: 18px;"
+                                class="fa-solid fa-square"></i>
+                        </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <div class="sales">
         <span class="material-symbols-outlined icons">
             info
@@ -24,8 +87,20 @@
                     </div>
 
                     <div class="input-field mb-2">
-                        <label for="description">Logo</label>
-                        <img src="{{imgUrl}}{{layoutModel.logo}}" alt="">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img style="width: 20%; height: 60%;" src="{{imgUrl}}{{layoutModel.logo}}" alt="">
+                            <div style="display: flex; flex-direction: column;" class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
                     </div>
 
                     <div class="input-field">
@@ -52,14 +127,14 @@
 
 <div style="display: flex; margin-top: 50px;">
     <h1>Linkler</h1>
-    <span (click)="addCard()" style="font-size: 34px; color: green; cursor: pointer;"
+    <span (click)="addLinkCard()" style="font-size: 34px; color: green; cursor: pointer;"
         class="material-symbols-outlined ms-3">
         add_circle
     </span>
 </div>
 
 <div class="insights">
-    <div *ngIf="addCardDiv" class="sales">
+    <div *ngIf="addLinkCardDiv" class="sales">
         <span class="material-symbols-outlined icons">
             link
         </span>

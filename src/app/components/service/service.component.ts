@@ -69,10 +69,11 @@ export class ServiceComponent {
       formData.append("image", this.fileInput.nativeElement.files[0]);
        // modelEnum değerini kontrol et
     if (service.modelEnum !== undefined) {
-      formData.append("modelEnum", service.modelEnum.toString()); // number'ı string'e dönüştür
+      formData.append("modelEnum", service.modelEnum.toString());
     }
       this.http.post("DescriptionModels/Update", formData, (res) => {
         // this.getService();
+        location.reload();
       })
     }
   }

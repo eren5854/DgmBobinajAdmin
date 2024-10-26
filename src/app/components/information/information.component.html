@@ -3,7 +3,59 @@
 </div>
 
 <div class="insights">
-    <div class="sales">
+
+    <div *ngIf="isInformationNull" class="sales">
+        <span class="material-symbols-outlined icons">
+            info
+            </span>
+        <div class="right">
+            <div class="input-box">
+                <h2>İletişim Bilgileri</h2>
+                <form #createInformationForm="ngForm" (ngSubmit)="createInformation(createInformationForm)">
+                    <div class="input-field mb-2">
+                        <label for="title">Yetkili Kişi</label>
+                        <input [(ngModel)]="informationModel.name" validate type="text" name="name" class="form-control"
+                            id="name" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="subTitle">Telefon</label>
+                        <input [(ngModel)]="informationModel.phone" validate type="text" name="phone" class="form-control"
+                            id="phone" autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="description">Fax</label>
+                        <input [(ngModel)]="informationModel.fax" validate type="text" name="fax" class="form-control"
+                            id="fax" autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="title">Adres</label>
+                        <input [(ngModel)]="informationModel.address" validate type="text" name="address" class="form-control"
+                            id="address" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field mb-2">
+                        <label for="title">E-Mail</label>
+                        <input [(ngModel)]="informationModel.email" validate type="text" name="email" class="form-control"
+                            id="email" required autocomplete="off">
+                    </div>
+
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                <!-- Save -->
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isInformationNull" class="sales">
         <span class="material-symbols-outlined icons">
             info
             </span>

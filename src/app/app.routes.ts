@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { inject } from '@angular/core';
 import { ContactComponent } from './components/contact/contact.component';
 import { SettingsComponent } from './components/settings/settings.component';
+import { ProductComponent } from './components/product/product.component';
 
 export const routes: Routes = [
     {
@@ -67,6 +68,10 @@ export const routes: Routes = [
             {
                 path: "settings",
                 component: SettingsComponent
+            },
+            {
+                path: "product",
+                component: ProductComponent
             }
         ]
     }

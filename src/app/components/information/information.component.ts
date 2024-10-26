@@ -16,6 +16,8 @@ import { WorkDateModel } from '../../models/work-date.model';
 export class InformationComponent {
   informationModel: InformationModel = new InformationModel();
   workDates: WorkDateModel[] = [];
+  workDateModel:WorkDateModel = new WorkDateModel();
+  isInformationNull = false;
 
   constructor(
     private http: HttpService,
@@ -28,8 +30,18 @@ export class InformationComponent {
   getInformation() {
     this.http.get("Informations/GetAll", (res) => {
       this.informationModel = res.data[0];
-
+      if(this.informationModel === null){
+        this.isInformationNull = true;
+      }
     });
+  }
+
+  createInformation(form:NgForm){
+    if (form.valid) {
+      this.http.post("Informations/Create", this.informationModel, (res) => {
+        this.getInformation();
+      })
+    }
   }
 
   updateInformation(form: NgForm) {
@@ -45,6 +57,14 @@ export class InformationComponent {
       this.workDates = res.data;
 
     });
+  }
+
+  createWorkDate(form:NgForm){
+    if (form.valid) {
+      this.http.post("WorkDates/Create", this.workDateModel, (res) => {
+        this.getWorkDate();
+      })
+    }
   }
 
   updateWorkDate(form: NgForm, workDate: WorkDateModel) {

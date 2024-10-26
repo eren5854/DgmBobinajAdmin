@@ -17,6 +17,8 @@ export class AboutComponent {
   aboutModel: DescriptionModel = new DescriptionModel();
   imageSrc: string | ArrayBuffer | null = null;
   imgUrl = "";
+  addCardDiv = false;
+  isAboutNull = false;
 
   constructor(
     private http: HttpService
@@ -29,13 +31,29 @@ export class AboutComponent {
   getAbout(){
     this.http.get("DescriptionModels/GetAll", (res) => {
       this.descriptions = res.data;
-
       this.descriptions.forEach((description) => {
         if (description.modelEnum === 0) {
           this.aboutModel = description;
+          if (this.aboutModel === null) {
+            this.isAboutNull = true;
+          }
         }
       });
     })
+  }
+
+  createAbout(form:NgForm){
+    const formData: FormData = new FormData();
+    if (form.valid) {
+      formData.append("id", this.aboutModel.id!);
+      formData.append("title", this.aboutModel.title);
+      formData.append("text", this.aboutModel.text);
+      formData.append("image", this.fileInput.nativeElement.files[0])
+      this.http.post("DescriptionModels/Create", formData, (res) => {
+        // this.getAbout();
+      location.reload();
+      })
+    }
   }
 
   updateAbout(form:NgForm){
@@ -46,15 +64,16 @@ export class AboutComponent {
       formData.append("text", this.aboutModel.text);
       formData.append("image", this.fileInput.nativeElement.files[0])
       this.http.post("DescriptionModels/Update", formData, (res) => {
-        this.getAbout();
+        // this.getAbout();
+      location.reload();
       })
     }
   }
 
   updateIsActive(id:string) {
     this.http.get(`DescriptionModels/UpdateIsActive?Id=${id}`, (res) => {
-      location.reload();
-      // this.getOperation();
+      // location.reload();
+      this.getAbout();
     })
   }
 
@@ -70,5 +89,9 @@ export class AboutComponent {
 
   triggerFileInput() {
     this.fileInput.nativeElement.click();
+  }
+
+  addCard() {
+    this.addCardDiv = !this.addCardDiv;
   }
 }

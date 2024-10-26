@@ -23,8 +23,10 @@ export class HomeComponent {
   miniServices: MiniServiceModel[] = [];
   imageSrc: string | ArrayBuffer | null = null;
   imgUrl = "";
+  isLayoutNull = false;
 
   addCardDiv = false;
+  addLinkCardDiv = false;
   addMiniServiceCardDiv = false;
 
   constructor(
@@ -40,6 +42,11 @@ export class HomeComponent {
   getLayout(){
     this.http.get("Layouts/GetAll", (res) => {
       this.layoutModel = res.data[0];
+      if(this.layoutModel === null){
+        this.isLayoutNull = true;
+        console.log(this.isLayoutNull);
+        
+      }
     });
   }
 
@@ -49,9 +56,22 @@ export class HomeComponent {
       formData.append("id", this.layoutModel.id!);
       formData.append("title", this.layoutModel.title);
       formData.append("subtitle", this.layoutModel.subtitle);
-      // formData.append("logo", this.layoutModel.logo);
+      formData.append("logo", this.fileInput.nativeElement.files[0]);
       this.http.post("Layouts/Update", formData, (res) => {
         this.getLayout();
+      });
+    }
+  }
+
+  createLayout(form: NgForm){
+    const formData: FormData = new FormData;
+    if (form.valid) {
+      formData.append("title", this.layoutModel.title);
+      formData.append("subtitle", this.layoutModel.subtitle);
+      formData.append("logo", this.fileInput.nativeElement.files[0]);
+      this.http.post("Layouts/Create", formData, (res) => {
+        // this.getLayout();
+        location.reload();
       });
     }
   }
@@ -141,6 +161,8 @@ export class HomeComponent {
       this.http.post("MiniServices/Create", formData, (res) => {
         this.addMiniServiceCardDiv = false;
         this.getMiniService();
+      location.reload();
+
       })
     }
   }
@@ -153,7 +175,9 @@ export class HomeComponent {
       formData.append("subtitle", miniService.subtitle);
       formData.append("image", this.fileInput.nativeElement.files[0])
       this.http.post("MiniServices/Update", formData, (res) => {
-        this.getMiniService();
+        // this.getMiniService();
+      location.reload();
+        
       })
     }
   }
@@ -161,8 +185,8 @@ export class HomeComponent {
   updateMiniServiceIsActive(id:string) {
     this.http.get(`MiniServices/UpdateIsActive?Id=${id}`, (res) => {
       console.log(res);
-      // location.reload();
-      this.getMiniService();
+      location.reload();
+      // this.getMiniService();
     })
   }
 
@@ -172,6 +196,16 @@ export class HomeComponent {
         this.getMiniService();
       });
     });
+  }
+
+  setImage(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+      reader.readAsDataURL(file);
+      this.layoutModel.logo = file.name;
+    }
   }
 
   setMiniServiceImage(event: any) {
@@ -190,6 +224,10 @@ export class HomeComponent {
 
   addCard() {
     this.addCardDiv = !this.addCardDiv;
+  }
+
+  addLinkCard() {
+    this.addLinkCardDiv = !this.addLinkCardDiv;
   }
   
   addMiniServiceCard(){

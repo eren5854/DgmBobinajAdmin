@@ -1,10 +1,65 @@
 <div style="display: flex;">
     <h1>Hakkında</h1>
+    <span *ngIf="isAboutNull" (click)="addCard()" style="font-size: 34px; color: green; cursor: pointer;"
+        class="material-symbols-outlined ms-3">
+        add_circle
+    </span>
 </div>
 
 <div class="insights">
 
-    <div class="sales">
+    <div *ngIf="isAboutNull" class="sales">
+        <span class="material-symbols-outlined icons">
+            groups
+        </span>
+        <div class="right">
+            <div class="input-box">
+                <form #createAboutForm="ngForm" (ngSubmit)="createAbout(createAboutForm)">
+                    <div class="input-field mb-2">
+                        <label for="firstName">Başlık</label>
+                        <input [(ngModel)]="aboutModel.title" validate type="text" name="title" class="form-control"
+                            id="title" autocomplete="off">
+                    </div>
+                    <div class="input-field mb-2">
+                        <label for="lastName">Yazı</label>
+                        <textarea [(ngModel)]="aboutModel.text" id="text" name="text" class="form-control"
+                            style="height: 200px;">
+                        </textarea>
+                        <div class="invalid-feedback">
+                            Last Name must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field mb-2">
+                        <label for="profilePicture">Resim</label>
+                        <input type="file" #fileInput (change)="setImage($event)" name="profilePicture"
+                            class="form-control d-none" id="profilePicture" autocomplete="off">
+                        <div class="input-group">
+                            <img src="{{imgUrl}}{{aboutModel.image}}" style="width: 60%; height: 60%;"
+                                alt="Selected Image">
+                            <div class="input-group-append">
+                                <button class="btn" type="button" (click)="triggerFileInput()"><span
+                                        class="material-symbols-sharp icons">upload</span></button>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback">
+                            Profile picture must be valid.
+                        </div>
+                    </div>
+                    <div class="input-field">
+                        <div class="btns">
+                            <button [disabled]="" class="submit">
+                                <i class="fa-solid fa-floppy-disk "></i>
+                                <!-- Save -->
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isAboutNull" class="sales">
         <span class="material-symbols-outlined icons">
             groups
         </span>
