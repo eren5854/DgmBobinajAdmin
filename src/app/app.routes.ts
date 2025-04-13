@@ -14,6 +14,7 @@ import { inject } from '@angular/core';
 import { ContactComponent } from './components/contact/contact.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { ProductComponent } from './components/product/product.component';
+import { AdvertComponent } from './components/advert/advert.component';
 
 export const routes: Routes = [
     {
@@ -72,6 +73,10 @@ export const routes: Routes = [
             {
                 path: "product",
                 component: ProductComponent
+            },
+            {
+                path: "advert",
+                component: AdvertComponent
             }
         ]
     }
