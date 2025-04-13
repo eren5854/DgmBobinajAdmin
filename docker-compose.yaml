@@ -8,4 +8,4 @@ services:
     image: dgm-bobinaj-admin
     container_name: DgmBobinajAdmin
     ports:
-      - 32630:80
+      - 54060:80
